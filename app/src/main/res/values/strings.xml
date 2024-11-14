@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MyDex</string>
+    <string name="search_pokemon">Search pokemon</string>
+</resources>
