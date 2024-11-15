@@ -19,6 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         >
 
+<!--        top menu -->
         <LinearLayout
             android:id="@+id/menu"
             android:layout_width="match_parent"
@@ -37,33 +38,49 @@
                 android:src="@drawable/pokeball_icon"
                 />
 
-            <EditText
-                android:id="@+id/searchBar"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/searchLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:startIconDrawable="@drawable/search_icon"
+                >
 
-                android:layout_margin="15dp"
-                android:padding="10dp"
+                <EditText
+                    android:id="@+id/searchBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1"
+
+                    android:layout_margin="15dp"
+                    android:padding="10dp"
 
 
-                android:background="@color/pokemon_white"
-                android:hint="@string/search_pokemon"
-                android:textAlignment="viewStart"
-                android:textSize="25sp"
-                />
+                    android:background="@color/pokemon_white"
+                    android:hint="@string/search_pokemon"
+                    android:textAlignment="viewStart"
+                    android:textSize="25sp"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
+<!--        pokemon list -->
         <ScrollView
+            android:id="@+id/pokemon_list_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/pokemon_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:text="hola"
-                />
+                android:orientation="vertical"
+                >
+            </LinearLayout>
         </ScrollView>
 
     </LinearLayout>

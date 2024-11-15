@@ -40,6 +40,17 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    // lottie (animaciones chulas)
+    // lottie (cool animations)
     implementation("com.airbnb.android:lottie:6.6.0");
+
+    // Gson (JSON parsing)
+    implementation("com.google.code.gson:gson:2.11.0");
+
+    // okhttp3 (for API requests)
+    implementation("com.squareup.okhttp3:okhttp:4.12.0");
+
+    // Glide (loading remote images into the activity)
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+
 }

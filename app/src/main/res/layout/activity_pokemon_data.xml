@@ -5,6 +5,204 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PokemonData">
+    tools:context=".PokemonData"
+    android:background="@color/pokemon_white"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:orientation="vertical"
+        >
+
+<!--        top menu -->
+        <LinearLayout
+            android:id="@+id/menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:background="@color/pokemon_red"
+            >
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+
+                android:src="@drawable/pokeball_icon"
+                />
+        </LinearLayout>
+
+<!--        basic info (name, pokedexNumber, portrait, type1/2, height, weight)-->
+        <LinearLayout
+            android:id="@+id/basicInfo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            >
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:rowCount="5"
+                android:columnCount="5"
+                >
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center"
+
+                    android:textSize="25sp"
+                    android:textColor="@color/pokemon_black"
+                    />
+
+                <TextView
+                    android:id="@+id/pokedex_number"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center"
+
+                    android:layout_margin="10dp"
+
+                    android:text="#"
+                    android:textSize="25sp"
+                    android:textColor="@color/pokemon_black"
+                    />
+
+                <ImageView
+                    android:id="@+id/portrait"
+                    android:layout_width="150dp"
+                    android:layout_height="200dp"
+
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_rowSpan="5"
+                    android:layout_gravity="center"
+                    />
+
+                <TextView
+                    android:id="@+id/type1"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center"
+
+                    android:layout_margin="10dp"
+                    android:padding="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+
+                    android:textSize="20sp"
+                    android:textColor="@color/pokemon_black"
+                    android:background="@drawable/type_bg"
+                    />
+
+                <TextView
+                    android:id="@+id/type2"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center"
+
+                    android:layout_margin="10dp"
+                    android:padding="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+
+                    android:textSize="20sp"
+                    android:textColor="@color/pokemon_black"
+                    android:background="@drawable/type_bg"
+                    />
+
+                <TextView
+                    android:id="@+id/height"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center"
+
+                    android:text="H: "
+                    android:textSize="20sp"
+                    android:textColor="@color/pokemon_black"
+                    />
+
+                <TextView
+                    android:id="@+id/weight"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center"
+
+                    android:text="W: "
+                    android:textSize="20sp"
+                    android:textColor="@color/pokemon_black"
+                    />
+
+                <TextView
+                    android:id="@+id/isLegendary"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center"
+
+                    android:text="Legendary: "
+                    android:textSize="17sp"
+                    android:textColor="@color/pokemon_black"
+                    />
+
+                <TextView
+                    android:id="@+id/isMythical"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center"
+
+                    android:text="Mythical: "
+                    android:textSize="17sp"
+                    android:textColor="@color/pokemon_black"
+                    />
+
+            </GridLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            >
+            <ImageButton
+                android:id="@+id/cryButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/play_icon"
+                android:background="@null"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:text="Play Cry"
+                android:textSize="20sp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
