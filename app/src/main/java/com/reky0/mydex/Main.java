@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 // OKHTTP
 import okhttp3.Call;
@@ -27,6 +29,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 // GSON
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
+import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -48,14 +53,16 @@ public class Main extends AppCompatActivity {
     private static final OkHttpClient client = new OkHttpClient();
     private static final Gson gson =  new GsonBuilder().setPrettyPrinting().create();
 
+    private PokemonViewModel viewModel;
 
-    private ArrayList<PokemonBatchSlot> showedData = new ArrayList<>();
-    private ArrayList<PokemonBatchSlot> batchBuffer = new ArrayList<>();
-
+    private LottieAnimationView loadingScreen;
+    private TextView loadingText;
     private ScrollView scrollView;
     private LinearLayout pokemonList;
     private TextInputLayout searchLayout;
     private EditText searchBar;
+
+    private boolean isFetching = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,53 +76,67 @@ public class Main extends AppCompatActivity {
             return insets;
         });
 
-        pokemonList = findViewById(R.id.pokemon_list);
+        // gets a new ViewModel if doesnt exist, if not, gets the same that's been created sometime before
+        viewModel = new ViewModelProvider(this).get(PokemonViewModel.class);
+
+        loadingScreen = findViewById(R.id.loadingScreen);
+        loadingScreen.setRepeatCount(LottieDrawable.INFINITE);
+        loadingScreen.playAnimation();
+
+        loadingText = findViewById(R.id.loadingText);
+
         scrollView = findViewById(R.id.pokemon_list_container);
+        pokemonList = findViewById(R.id.pokemon_list);
         searchLayout = findViewById(R.id.searchLayout);
         searchBar = findViewById(R.id.searchBar);
 
-        loadNextBatch();
+        // if we're starting from scratch
+        if (viewModel.showedData.isEmpty()) {
+            loadNextBatch();
+        } else { // if has been a change on the activity but there's previously retrieved data
+            // reset pokedex number count since we'll show the data from the beginning
+            pokedexNumberCount = 1;
+            // create pokemonBatch with all data stored
+            PokemonBatch storedData = new PokemonBatch();
+            storedData.setBatch(viewModel.showedData);
+            // update UI (which will be empty since it has been a change on the activity) with
+            // the previously retrieved data
+            updateUIWithBatch(storedData);
+        }
 
         final ConstraintLayout layout = findViewById(R.id.main);
 
         searchLayout.setStartIconOnClickListener(v -> {
-            Log.d("CHECKPOINT", "Trying to search pokemon");
+            Log.d("main", "Trying to search pokemon");
             if (searchBar.getText().toString().isEmpty()) {
                 Snackbar.make(layout, "Empty Search Not Allowed", Snackbar.LENGTH_SHORT).show();
             } else {
-                showPokemonInfo(searchBar.getText().toString());
+                showPokemonInfo(searchBar.getText().toString().toLowerCase());
                 searchBar.clearFocus();
                 searchBar.setText("");
             }
         });
 
-        searchBar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                // Check if the action is "done" (Enter key pressed)
-                if (actionId == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    Log.d("CHECKPOINT", "ENTER Pressed, trying to search pokemon");
-                    if (searchBar.getText().toString().isEmpty()) {
-                        Snackbar.make(layout, "Empty Search Not Allowed", Snackbar.LENGTH_SHORT).show();
-                    } else {
-                        showPokemonInfo(searchBar.getText().toString());
-                        searchBar.clearFocus();
-                        searchBar.setText("");
-                    }
-                    return true; // Return true if the action was handled
+        searchBar.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                Log.d("main", "ENTER Pressed, trying to search pokemon");
+                if (searchBar.getText().toString().isEmpty()) {
+                    Snackbar.make(layout, "Empty Search Not Allowed", Snackbar.LENGTH_SHORT).show();
+                } else {
+                    showPokemonInfo(searchBar.getText().toString().toLowerCase());
+                    searchBar.clearFocus();
+                    searchBar.setText("");
                 }
-                return false; // Return false if the action was not handled
+                return true; // Return true if the action was handled
             }
+            return false; // Return false if the action was not handled
         });
 
-        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (v instanceof ScrollView) {
-                    ScrollView sv = (ScrollView) v;
-                    if (scrollY == (sv.getChildAt(0).getMeasuredHeight() - sv.getMeasuredHeight())) {
-                        loadNextBatch();
-                    }
+        scrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (v instanceof ScrollView) {
+                ScrollView sv = (ScrollView) v;
+                if (scrollY == (sv.getChildAt(0).getMeasuredHeight() - sv.getMeasuredHeight())) {
+                    loadNextBatch();
                 }
             }
         });
@@ -127,28 +148,40 @@ public class Main extends AppCompatActivity {
     public void loadNextBatch() {
         String url = BASE_POKEMON_URL +"?offset="+offset+"&limit="+BATCH_SIZE;
 
+        // so that the same request cannot be done twice at the same time
+        if (isFetching) {
+            Log.w("main-loadNextBatch", "Another request is already being processed.");
+            return;
+        }
+
+        Log.w("main-loadNextBatch", "doing some things");
+
+        isFetching = true;
+
         // sets request
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
-        Log.d("CHECKPOINT", "Performing Request");
+        Log.d("main-loadNextBatch", "Performing Request");
         // performs request
         client.newCall(request).enqueue(new Callback() {
             // in case of failure
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e("ERROR", e.toString());
+                isFetching = false;
+                Log.e("main-loadNextBatch", e.toString());
             }
 
             // in case of success
             @Override
             public void onResponse(Call call, Response r) throws IOException {
+                isFetching = false;
                 if (r.isSuccessful()) {
-                    Log.d("CHECKPOINT", "Successful Request");
+                    Log.d("main-loadNextBatch", "Successful Request");
                     String response = r.body().string();
 
-                    Log.d("CHECKPOINT", "Parsing Json to PokemonBatch");
+                    Log.d("main-loadNextBatch", "Parsing Json to PokemonBatch");
                     try {
                         // parses to jsonobject
                         JsonObject jo = gson.fromJson(response, JsonObject.class);
@@ -162,21 +195,27 @@ public class Main extends AppCompatActivity {
                         ArrayList<PokemonBatch.PokemonBatchSlot> data2 = gson.fromJson(jo.getAsJsonArray("results").toString(), new TypeToken<ArrayList<PokemonBatch.PokemonBatchSlot>>(){}.getType());
                         PokemonBatch pokemonBatch = new PokemonBatch();
                         pokemonBatch.setBatch(data2);
+                        // adds all PokemonBatchSlot to the ViewModel in order to store it
+                        viewModel.showedData.addAll(pokemonBatch.getBatch());
+
                         runOnUiThread(() -> updateUIWithBatch(pokemonBatch));
                         offset += BATCH_SIZE;
                     } catch (Exception e) {
-                        Log.e("ERROR", e.toString());
+                        Log.e("main-loadNextBatch", e.toString());
                     }
                 } else {
-                    Log.e("ERROR", String.valueOf(r.code()));
+                    Log.e("main-loadNextBatch", String.valueOf(r.code()));
                 }
             }
         });
     }
 
     private void updateUIWithBatch(PokemonBatch batch) {
-        Log.d("CHECKPOINT", "updating UI");
-        Log.d("CHECKPOINT", batch.toString());
+        Log.d("main-updateUIWithBatch", "updating UI");
+        Log.d("main-updateUIWithBatch", batch.toString());
+        loadingScreen.setVisibility(View.GONE);
+        loadingScreen.cancelAnimation(); // stops animation
+        loadingText.setVisibility(View.GONE);
 
         for (int i = 0; i < batch.getBatch().size(); i++) {
             PokemonBatchSlot slot = batch.getBatch().get(i);
@@ -186,11 +225,19 @@ public class Main extends AppCompatActivity {
                     .inflate(R.layout.pokemon_list_element_template, pokemonList, false);
 
             // Configurar los datos en la vista inflada
-            TextView idTextView = pokemonView.findViewById(R.id.id);
-            TextView nameTextView = pokemonView.findViewById(R.id.name);
+            TextView pokemonDexNumber = pokemonView.findViewById(R.id.id);
+            TextView pokemonName = pokemonView.findViewById(R.id.name);
+            ImageView pokemonPreview = pokemonView.findViewById(R.id.pokemonPreview);
 
-            idTextView.setText(String.valueOf(pokedexNumberCount)); // Asigna el ID del Pokémon
-            nameTextView.setText(slot.getName()); // Asigna el nombre del Pokémon
+            pokemonDexNumber.setText(pokemonDexNumber.getText().toString() + pokedexNumberCount); // Asigna el ID del Pokémon
+            pokemonName.setText(slot.getName()); // Asigna el nombre del Pokémon
+
+            String pokemonPreviewURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokedexNumberCount+".png";
+
+            Glide.with(this)
+                .load(pokemonPreviewURL)
+                .error(pokemonPreviewURL) // if fails load retries to load once again the img
+                .into(pokemonPreview);
 
             pokemonView.setOnClickListener(view -> {
                 showPokemonInfo(slot.getName());

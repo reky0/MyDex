@@ -5,4 +5,23 @@
     <color name="pokemon_red">#EE1515</color>
     <color name="pokemon_black">#222224</color>
     <color name="pokemon_white">#F0F0F0</color>
+    <color name="color_type_normal">#919aa2</color>
+    <color name="color_type_fighting">#ce416b</color>
+    <color name="color_type_flying">#8fa9de</color>
+    <color name="color_type_poison">#aa6bc8</color>
+    <color name="color_type_ground">#d97845</color>
+    <color name="color_type_rock">#c5b78c</color>
+    <color name="color_type_bug">#91c12f</color>
+    <color name="color_type_ghost">#5269ad</color>
+    <color name="color_type_steel">#5a8ea2</color>
+    <color name="color_type_fire">#ff9d55</color>
+    <color name="color_type_water">#5090d6</color>
+    <color name="color_type_grass">#63bc5a</color>
+    <color name="color_type_electric">#f4d23c</color>
+    <color name="color_type_psychic">#fa7179</color>
+    <color name="color_type_ice">#73cec0</color>
+    <color name="color_type_dragon">#0b6dc3</color>
+    <color name="color_type_dark">#5a5465</color>
+    <color name="color_type_fairy">#ec8fe6</color>
+    <color name="grey">#DFDFDF</color>
 </resources>

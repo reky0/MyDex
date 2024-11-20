@@ -192,7 +192,6 @@ public class SearchAndroidVer {
         String response;
         int statusCode;
 
-
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -322,7 +321,6 @@ public class SearchAndroidVer {
             System.out.println(" - " + vs.getVariety().getName() + " -> "+vs.getVariety().getUrl());
         }
     }
-
 
     public static void main(String[] args) throws Exception {
         String pokemonSearched = "charizard";

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.gson.annotations.SerializedName; // tag to indicate which JSON key is represented by the variable
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -204,36 +205,22 @@ public class Pokemon {
         private String front_shiny;
         private String front_shiny_female;
 
-        public String getBackDefault() {
-            return back_default;
-        }
-
-        public String getBackFemale() {
-            return back_female;
-        }
-
-        public String getBackShiny() {
-            return back_shiny;
-        }
-
-        public String getBackShinyFemale() {
-            return back_shiny_female;
-        }
-
         public String getFrontDefault() {
             return front_default;
         }
 
-        public String getFrontFemale() {
-            return front_female;
-        }
+        public ArrayList<String> getAllSprites() {
+            ArrayList<String> allSprites = new ArrayList<>();
+            allSprites.add(front_default);
+            allSprites.add(back_default);
+            allSprites.add(front_shiny);
+            allSprites.add(back_shiny);
+            allSprites.add(front_female);
+            allSprites.add(back_female);
+            allSprites.add(front_shiny_female);
+            allSprites.add(back_shiny_female);
 
-        public String getFrontShiny() {
-            return front_shiny;
-        }
-
-        public String getFrontShinyFemale() {
-            return front_shiny_female;
+            return allSprites;
         }
 
         @Override

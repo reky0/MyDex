@@ -1,32 +1,47 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="100dp"
     android:orientation="horizontal"
 
     android:padding="10dp"
+    android:layout_margin="10dp"
+
+    android:background="@drawable/pokemon_list_element_bg"
     >
 
+<!--    id -->
     <TextView
         android:id="@+id/id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:layout_gravity="center_vertical"
 
-        android:textSize="30sp"
-        android:textAlignment="center"
+        android:text="#"
+        android:textSize="20sp"
+        android:textColor="@color/pokemon_black"
         />
 
+<!--    name -->
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:layout_gravity="center"
 
-        android:layout_marginStart="10dp"
-
+        android:text="test"
         android:textSize="30sp"
-        android:paddingStart="10dp"
+        android:textColor="@color/pokemon_black"
         />
 
+<!--    preview -->
+    <ImageView
+        android:id="@+id/pokemonPreview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:scaleType="fitCenter"
+        />
 </LinearLayout>
