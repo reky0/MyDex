@@ -240,9 +240,14 @@ public class Pokemon {
 
     public static class MoveSlot {
         private Move move;
+        private ArrayList<VersionGroupDetails> version_group_details;
 
         public Move getMove() {
             return move;
+        }
+
+        public ArrayList<VersionGroupDetails> getVersion_group_details() {
+            return version_group_details;
         }
 
         @Override
@@ -268,6 +273,75 @@ public class Pokemon {
                         name +
                         ", " + url +
                         '}';
+            }
+        }
+
+        public static class VersionGroupDetails {
+            private int level_earned_at;
+            private MoveLearnMethod move_learn_method;
+            private VersionGroup version_group;
+
+            public int getLevel_earned_at() {
+                return level_earned_at;
+            }
+
+            public MoveLearnMethod getMove_learn_method() {
+                return move_learn_method;
+            }
+
+            public VersionGroup getVersion_group() {
+                return version_group;
+            }
+
+            @Override
+            public String toString() {
+                return "VersionGroupDetails{" +
+                        "level_earned_at=" + level_earned_at +
+                        ", move_learn_method=" + move_learn_method +
+                        ", version_group=" + version_group +
+                        '}';
+            }
+
+            public static class MoveLearnMethod {
+                private String name;
+                private String url;
+
+                public String getName() {
+                    return name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                @Override
+                public String toString() {
+                    return "MoveLearnMethod{" +
+                            "name='" + name + '\'' +
+                            ", url='" + url + '\'' +
+                            '}';
+                }
+            }
+
+            public static class VersionGroup {
+                private String name;
+                private String url;
+
+                public String getName() {
+                    return name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                @Override
+                public String toString() {
+                    return "VersionGroup{" +
+                            "name='" + name + '\'' +
+                            ", url='" + url + '\'' +
+                            '}';
+                }
             }
         }
     }

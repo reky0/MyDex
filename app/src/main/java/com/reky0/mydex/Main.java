@@ -1,6 +1,7 @@
 package com.reky0.mydex;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -14,7 +15,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatViewInflater;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -32,6 +36,10 @@ import okhttp3.Response;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -106,17 +114,23 @@ public class Main extends AppCompatActivity {
 
         final ConstraintLayout layout = findViewById(R.id.main);
 
+        // search on icon search_icon press
         searchLayout.setStartIconOnClickListener(v -> {
             Log.d("main", "Trying to search pokemon");
             if (searchBar.getText().toString().isEmpty()) {
-                Snackbar.make(layout, "Empty Search Not Allowed", Snackbar.LENGTH_SHORT).show();
+                Snackbar
+                        .make(layout, "Empty Search Not Allowed", Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(getColor(R.color.pokemon_red))
+                        .setTextColor(getColor(R.color.pokemon_white))
+                        .show();
             } else {
-                showPokemonInfo(searchBar.getText().toString().toLowerCase());
+                showPokemonInfo(searchBar.getText().toString().toLowerCase().replace(" ", "-"));
                 searchBar.clearFocus();
                 searchBar.setText("");
             }
         });
 
+        // search on pressing enter button from keyboard
         searchBar.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 Log.d("main", "ENTER Pressed, trying to search pokemon");
@@ -132,6 +146,7 @@ public class Main extends AppCompatActivity {
             return false; // Return false if the action was not handled
         });
 
+        // load next batch when getting to bottom of list
         scrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (v instanceof ScrollView) {
                 ScrollView sv = (ScrollView) v;
@@ -220,11 +235,13 @@ public class Main extends AppCompatActivity {
         for (int i = 0; i < batch.getBatch().size(); i++) {
             PokemonBatchSlot slot = batch.getBatch().get(i);
 
-            // Inflar la vista desde el XML
-            LinearLayout pokemonView = (LinearLayout) LayoutInflater.from(this)
-                    .inflate(R.layout.pokemon_list_element_template, pokemonList, false);
+            CardView pokemonView = (CardView) LayoutInflater.from(this).inflate(R.layout.pokemon_list_element_template, pokemonList, false);
+//
+//            // Inflar la vista desde el XML
+//            LinearLayout pokemonView = (LinearLayout) LayoutInflater.from(this)
+//                    .inflate(R.layout.pokemon_list_element_template, pokemonList, false);
 
-            // Configurar los datos en la vista inflada
+            // set values for contained elements of the the view
             TextView pokemonDexNumber = pokemonView.findViewById(R.id.id);
             TextView pokemonName = pokemonView.findViewById(R.id.name);
             ImageView pokemonPreview = pokemonView.findViewById(R.id.pokemonPreview);
@@ -234,19 +251,45 @@ public class Main extends AppCompatActivity {
 
             String pokemonPreviewURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokedexNumberCount+".png";
 
-            Glide.with(this)
-                .load(pokemonPreviewURL)
-                .error(pokemonPreviewURL) // if fails load retries to load once again the img
-                .into(pokemonPreview);
+            loadPokemonPreviewImage(pokemonPreviewURL, pokemonPreview);
 
             pokemonView.setOnClickListener(view -> {
                 showPokemonInfo(slot.getName());
             });
 
-            // Añadir la vista al contenedor
+            // add view to layout
             pokemonList.addView(pokemonView);
             pokedexNumberCount++;
         }
+    }
+
+    // max count of tries for the glide to load the image
+    final int[] tries = {0};
+
+    public void loadPokemonPreviewImage(String imageURL, ImageView imageView) {
+        Glide.with(this)
+            .load(imageURL)
+            .listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    tries[0]++;
+                    // max retry count for preventing infinite loop
+                    if (tries[0] < 5) {
+                        Log.w("loadPokemonPreviewImage", "Failed to load image, retrying");
+                        // retries with a 2s delay (executes the same method recursively)
+                        imageView.postDelayed(() -> loadPokemonPreviewImage(imageURL, imageView), 2000);
+                    }
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    Log.d("loadPokemonPreviewImage", "Successful image load.");
+                    return false;
+                }
+            })
+            .error(R.drawable.pokebal_placeholder) // if fails load after maxTries (5) then shows placeholder
+            .into(imageView);
     }
 
     private void showPokemonInfo(String name) {

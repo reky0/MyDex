@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/pokemon_white"
+    app:cardCornerRadius="50dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!--        NAME -->
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:layout_weight="1"
+
+                android:textColor="@color/pokemon_white"
+                android:textStyle="bold"
+                />
+
+            <!--        DAMAGE CLASS -->
+            <ImageView
+                android:id="@+id/damageClass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:layout_weight="1"
+
+                android:textColor="@color/pokemon_black" />
+
+            <!--        POWER -->
+            <TextView
+                android:id="@+id/power"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:layout_weight="1"
+
+                android:text="Power:\n"
+                android:textAlignment="center"
+                android:textColor="@color/pokemon_white" />
+
+            <!--        ACCURACY -->
+            <TextView
+                android:id="@+id/accuracy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:layout_weight="1"
+
+                android:text="Accuracy:\n"
+                android:textAlignment="center"
+                android:textColor="@color/pokemon_white" />
+
+            <!--        PP -->
+            <TextView
+                android:id="@+id/pp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:layout_weight="1"
+
+                android:text="PP:\n"
+                android:textAlignment="center"
+                android:textColor="@color/pokemon_white" />
+        </LinearLayout>
+
+        <!--    DESCRIPTION -->
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textAlignment="center"
+            android:textColor="@color/pokemon_white" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+
+<!-- ********************** -->
+<!-- VERSION WITH TYPE SIGN -->
+<!-- ********************** -->
+<!--    <?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_margin="5dp"-->
+<!--android:backgroundTint="@color/pokemon_white"-->
+<!--app:cardCornerRadius="50dp">-->
+
+<!--<LinearLayout-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_margin="10dp"-->
+<!--    android:orientation="vertical"-->
+
+<!--    android:padding="5dp">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        &lt;!&ndash;        NAME &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/name"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_weight="1"-->
+
+<!--            android:textColor="@color/pokemon_black" />-->
+
+<!--        &lt;!&ndash;        TYPE &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/type"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_weight="1"-->
+
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/pokemon_white" />-->
+
+<!--        &lt;!&ndash;        DAMAGE CLASS &ndash;&gt;-->
+<!--        <ImageView-->
+<!--            android:id="@+id/damageClass"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_weight="1"-->
+
+<!--            android:textColor="@color/pokemon_black" />-->
+
+<!--        &lt;!&ndash;        POWER &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/power"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_weight="1"-->
+
+<!--            android:text="Power:\n"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/pokemon_black" />-->
+
+<!--        &lt;!&ndash;        ACCURACY &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/accuracy"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_weight="1"-->
+
+<!--            android:text="Accuracy:\n"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/pokemon_black" />-->
+
+<!--        &lt;!&ndash;        PP &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/pp"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_weight="1"-->
+
+<!--            android:text="PP:\n"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/pokemon_black" />-->
+<!--    </LinearLayout>-->
+
+<!--    &lt;!&ndash;    DESCRIPTION &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/description"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/pokemon_black" />-->
+
+<!--</LinearLayout>-->
+<!--</androidx.cardview.widget.CardView>-->
+

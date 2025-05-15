@@ -37,11 +37,12 @@
 
                 android:src="@drawable/pokeball_icon" />
 
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/searchLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/pokemon_black"
+                android:textColorHint="@color/pokemon_black"
                 app:startIconDrawable="@drawable/search_icon"
                 >
 
@@ -83,6 +84,7 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/bulbasaur_running" />
 
+        <!--    loading text -->
         <TextView
             android:id="@+id/loadingText"
             android:layout_width="match_parent"
@@ -107,7 +109,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/pokemon_white"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical">
+
+
+            </LinearLayout>
         </ScrollView>
 
     </LinearLayout>

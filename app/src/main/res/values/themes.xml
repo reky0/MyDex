@@ -7,5 +7,11 @@
 
     <style name="Theme.MyDex" parent="Base.Theme.MyDex">
         <item name="android:windowIsTranslucent">true</item>
+        <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.Colored</item>
+        <item name="colorPrimary">@color/pokemon_red</item>
+        <item name="colorSecondary">@color/pokemon_white</item>
+        <item name="android:textColor">@color/pokemon_white</item>
+        <item name="itemTextColor">@color/pokemon_white</item>
+        <item name="itemIconTint">@color/pokemon_white</item>
     </style>
 </resources>

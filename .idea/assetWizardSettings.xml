@@ -24,7 +24,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\rault\AppData\Local\Temp\baseline_play_circle_outline_24.xml" />
+                                                <entry key="imagePath" value="C:\Users\rault\AppData\Local\Temp\baseline_info_outline_24.xml" />
                                                 <entry key="opacityPercent" value="60" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
@@ -37,7 +37,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/play_circle_outline/baseline_play_circle_outline_24.xml" />
+                                                <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/info_outline/baseline_info_outline_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -49,8 +49,9 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="F:\no_cole\programacion\android\images\pokeball_icon.png" />
-                                                <entry key="opacityPercent" value="60" />
+                                                <entry key="imagePath" value="F:\no_cole\programacion\android\images\stats_icon.png" />
+                                                <entry key="opacityPercent" value="80" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -82,8 +83,11 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="imageAsset" value="F:\no_cole\programacion\android\images\pokeball_icon.png" />
-                                      <entry key="outputName" value="play_icon" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="F:\no_cole\programacion\android\images\stats_icon.png" />
+                                      <entry key="outputName" value="stats_icon" />
+                                      <entry key="theme" value="CUSTOM" />
+                                      <entry key="themeColor" value="000000" />
                                     </map>
                                   </option>
                                 </PersistentState>

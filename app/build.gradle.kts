@@ -49,8 +49,10 @@ dependencies {
     // okhttp3 (for API requests)
     implementation("com.squareup.okhttp3:okhttp:4.12.0");
 
-    // Glide (loading remote images into the activity)
+    // Glide (loading remote images dynamically into the activity)
     implementation("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 
+    // MPAndroidChart (nice and easy charts)
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

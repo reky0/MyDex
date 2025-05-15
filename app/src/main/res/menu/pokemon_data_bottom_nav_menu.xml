@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/info"
+        android:enabled="true"
+        android:title="@string/info"
+        android:icon="@drawable/info_icon"
+        />
+
+    <item
+        android:id="@+id/movements"
+        android:enabled="true"
+        android:title="@string/movements"
+        android:icon="@drawable/sword_icon"
+        />
+
+
+    <item
+        android:id="@+id/evolutionChain"
+        android:enabled="true"
+        android:title="@string/evo_chain"
+        android:icon="@drawable/arrows_icon"
+        />
+
+
+    <item
+        android:id="@+id/stats"
+        android:enabled="true"
+        android:title="@string/stats"
+        android:icon="@drawable/stats_icon"
+        />
+
+</menu>

@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">MyDex</string>
     <string name="search_pokemon">Search pokemon</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sprites">Sprites</string>
+    <string name="play_cry">Play Cry</string>
+    <string name="play_button">Play Button</string>
+    <string name="portrait">Portrait</string>
+    <string name="pok_mon_nnot_found">Pokémon\nNot Found</string>
+    <string name="info">Info.</string>
+    <string name="movements">Movements</string>
+    <string name="evo_chain">Evo. Chain</string>
+    <string name="stats">Stats</string>
+    <string name="comillas">\"</string>
+    <string name="tm_tr_moves">TM/TR Moves</string>
+    <string name="innate_moves">Innate Moves</string>
 </resources>
