@@ -7,7 +7,7 @@ Shows a list with all the Pokémon in the global Pokédex. Uses a MVVM architect
 to minimize API calls and provide fast response time, while providing a smooth 
 user experience by seaming an endless scroll. 
 
-![Home screen](img/home_screen.png)
+<img src="img/home_screen.png" alt="Home Screen with Pokédex list" width="30%" />
 
 ## Pokémon Details
 ### Basic info
@@ -15,7 +15,8 @@ user experience by seaming an endless scroll.
 A minimalist screen containing basic information about the selected Pokémon, including
 its name, Pokédex number, as well as types, sprites, cry and complexity-related data.
 
-![Pokémon Details: basic info](img/details-basic_info.png)
+
+<img src="img/details-basic_info.png" alt="Pokémon details: basic info" width="30%" />
 
 ### Movements
 
@@ -27,14 +28,14 @@ Each move has the basic information shown as in the video games: its name, damag
 power, accuracy, Power Points (PP), short description and the move type represented in
 the background color of the movement.
 
-![Pokémon Details: movements](img/details-movements.png)
+<img src="img/details-movements.png" alt="Pokémon details: movements" width="30%" />
 
 ### Stats
 
 A simple radar chart showing the statistics of the selected Pokémon. Perfect for 
 competitive-focused players who want to get the most potential of their Pokémon.
 
-![Pokémon Details: stats](img/details-stats.png)
+<img src="img/details-stats.png" alt="Pokémon details: stats" width="30%" />
 
 ## Credits
 > Resources employed in this project:  
