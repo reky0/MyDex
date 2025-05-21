@@ -1,5 +1,5 @@
 # MyDex
-Simple Pokedex app for Android devices, uses PokéAPI, the RESTful Pokémon API
+Simple Pokedex app for Android devices written in Java, uses PokéAPI, the RESTful Pokémon API
 
 ## Home Screen
 
